@@ -66,3 +66,4 @@ def serve():
 if __name__ == '__main__':
     logging.basicConfig()
     serve()
+    # так и не понял, получилось запустить или нет
