@@ -1,6 +1,6 @@
 ### Sigame ###
-*/bin/
-*/obj/
+Sigame/Sigame/bin/
+Sigame/Sigame/obj/
 */.vs/
 Sigame/packages/
 ### SessionDispatcher ###

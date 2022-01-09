@@ -22,7 +22,6 @@ namespace Sigame
             var channel = new Channel("localhost:50051", ChannelCredentials.Insecure );
             {
                 var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
-                // var result = client.GetSessions(new Void() );
 
                 var sessionsStream = client.GetSessions(new Void());
                 while (sessionsStream.ResponseStream.MoveNext().Result)
