@@ -5,3 +5,5 @@ Sigame/Sigame/obj/
 Sigame/packages/
 ### SessionDispatcher ###
 */__pycache__/
+### Other ###
+*.idea

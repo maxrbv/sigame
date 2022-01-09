@@ -30,26 +30,26 @@ namespace Sigame
         private void InitializeComponent()
         {
             this.questionsField = new System.Windows.Forms.DataGridView();
-            this.Theme = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.th200 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.th400 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.th600 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.th800 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.th1000 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.playersView = new System.Windows.Forms.ListView();
             this.Имя = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Счёт = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.questionlabel = new System.Windows.Forms.Label();
+            this.th200 = new DataGridViewButtonDisableColumn();
+            this.th400 = new DataGridViewButtonDisableColumn();
+            this.th600 = new DataGridViewButtonDisableColumn();
+            this.th800 = new DataGridViewButtonDisableColumn();
+            this.th1000 = new DataGridViewButtonDisableColumn();
             ((System.ComponentModel.ISupportInitialize)(this.questionsField)).BeginInit();
             this.SuspendLayout();
             // 
             // questionsField
             // 
+            this.questionsField.AllowUserToAddRows = false;
+            this.questionsField.AllowUserToDeleteRows = false;
             this.questionsField.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionsField.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Theme,
             this.th200,
             this.th400,
             this.th600,
@@ -57,45 +57,9 @@ namespace Sigame
             this.th1000});
             this.questionsField.Location = new System.Drawing.Point(23, 43);
             this.questionsField.Name = "questionsField";
+            this.questionsField.ReadOnly = true;
             this.questionsField.Size = new System.Drawing.Size(680, 352);
             this.questionsField.TabIndex = 0;
-            // 
-            // Theme
-            // 
-            this.Theme.HeaderText = "Темы";
-            this.Theme.Name = "Theme";
-            this.Theme.ReadOnly = true;
-            this.Theme.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // th200
-            // 
-            this.th200.HeaderText = "Очень легко";
-            this.th200.Name = "th200";
-            this.th200.Text = "200";
-            // 
-            // th400
-            // 
-            this.th400.HeaderText = "Легко";
-            this.th400.Name = "th400";
-            this.th400.Text = "400";
-            // 
-            // th600
-            // 
-            this.th600.HeaderText = "Нормально";
-            this.th600.Name = "th600";
-            this.th600.Text = "600";
-            // 
-            // th800
-            // 
-            this.th800.HeaderText = "По-тяжелее";
-            this.th800.Name = "th800";
-            this.th800.Text = "800";
-            // 
-            // th1000
-            // 
-            this.th1000.HeaderText = "Сложно";
-            this.th1000.Name = "th1000";
-            this.th1000.Text = "1000";
             // 
             // playersView
             // 
@@ -136,6 +100,46 @@ namespace Sigame
             this.questionlabel.TabIndex = 4;
             this.questionlabel.Text = "Какой-то вопрос";
             // 
+            // th200
+            // 
+            this.th200.HeaderText = "Очень легко";
+            this.th200.Name = "th200";
+            this.th200.ReadOnly = true;
+            this.th200.Text = "200";
+            this.th200.UseColumnTextForButtonValue = true;
+            // 
+            // th400
+            // 
+            this.th400.HeaderText = "Легко";
+            this.th400.Name = "th400";
+            this.th400.ReadOnly = true;
+            this.th400.Text = "400";
+            this.th400.UseColumnTextForButtonValue = true;
+            // 
+            // th600
+            // 
+            this.th600.HeaderText = "Нормально";
+            this.th600.Name = "th600";
+            this.th600.ReadOnly = true;
+            this.th600.Text = "600";
+            this.th600.UseColumnTextForButtonValue = true;
+            // 
+            // th800
+            // 
+            this.th800.HeaderText = "По-тяжелее";
+            this.th800.Name = "th800";
+            this.th800.ReadOnly = true;
+            this.th800.Text = "800";
+            this.th800.UseColumnTextForButtonValue = true;
+            // 
+            // th1000
+            // 
+            this.th1000.HeaderText = "Сложно";
+            this.th1000.Name = "th1000";
+            this.th1000.ReadOnly = true;
+            this.th1000.Text = "1000";
+            this.th1000.UseColumnTextForButtonValue = true;
+            // 
             // GameSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -157,17 +161,16 @@ namespace Sigame
         #endregion
 
         private System.Windows.Forms.DataGridView questionsField;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Theme;
-        private System.Windows.Forms.DataGridViewButtonColumn th200;
-        private System.Windows.Forms.DataGridViewButtonColumn th400;
-        private System.Windows.Forms.DataGridViewButtonColumn th600;
-        private System.Windows.Forms.DataGridViewButtonColumn th800;
-        private System.Windows.Forms.DataGridViewButtonColumn th1000;
         private System.Windows.Forms.ListView playersView;
         private System.Windows.Forms.ColumnHeader Имя;
         private System.Windows.Forms.ColumnHeader Счёт;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label questionlabel;
+        private DataGridViewButtonDisableColumn th200;
+        private DataGridViewButtonDisableColumn th400;
+        private DataGridViewButtonDisableColumn th600;
+        private DataGridViewButtonDisableColumn th800;
+        private DataGridViewButtonDisableColumn th1000;
     }
 }
