@@ -1,1 +1,7 @@
-
+### Sigame ###
+*/bin/
+*/obj/
+*/.vs/
+Sigame/packages/
+### SessionDispatcher ###
+*/__pycache__/

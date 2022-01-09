@@ -1,2 +1,0 @@
-obj\Debug/Sessions.cs \
-obj\Debug/SessionsGrpc.cs: sessions.proto

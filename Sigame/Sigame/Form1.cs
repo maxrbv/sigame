@@ -4,11 +4,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
+
 namespace Sigame
 {
     public partial class Form1 : Form
@@ -16,23 +19,16 @@ namespace Sigame
         public Form1()
         {
             InitializeComponent();
-            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            using (var channel = GrpcChannel.ForAddress("localhost:50051"))
+            var channel = new Channel("localhost:50051", ChannelCredentials.Insecure );
             {
                 var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
-                try
-                {
-                    var sessionsStream = client.GetSessions(new Void());
-                    while (sessionsStream.ResponseStream.MoveNext().Result)
-                    {
-                        var session = sessionsStream.ResponseStream.Current;
-                        sessionList_box.Items.Add(session.Ip);
+                // var result = client.GetSessions(new Void() );
 
-                    }
-                }
-                catch
+                var sessionsStream = client.GetSessions(new Void());
+                while (sessionsStream.ResponseStream.MoveNext().Result)
                 {
-
+                    var session = sessionsStream.ResponseStream.Current;
+                    sessionList_box.Items.Add(session.Ip);
                 }
             } 
         }

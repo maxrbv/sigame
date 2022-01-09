@@ -49,9 +49,9 @@ class SessionsDispatcherServicer(sessions_pb2_grpc.SessionsDispatcherServicer):
         connection = self.InitDB()
         
         cursor = connection.cursor()
-
-        for ip in cursor.fetchall("SELECT ip FROM sessions"):
-            yield ip
+        cursor.execute("SELECT ip FROM sessions")
+        for ip in cursor.fetchall():
+            yield sessions_pb2.Session(ip=ip[0])
         connection.close()
 
 
