@@ -7,7 +7,7 @@ import psycopg2
 import json
 
 
-class SesionDispactherServicer(sessions_pb2_grpc.SesionDispactherServicer):
+class SessionsDispatcherServicer(sessions_pb2_grpc.SessionsDispatcherServicer):
     def InitDB(self):
         with open('credentials.json', 'r') as credentials: 
             settings = json.loads(credentials.read())
@@ -57,9 +57,11 @@ class SesionDispactherServicer(sessions_pb2_grpc.SesionDispactherServicer):
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    sessions_pb2_grpc.add_SesionDispactherServicer_to_server(SesionDispactherServicer(), server)
+    sessions_pb2_grpc.add_SessionsDispatcherServicer_to_server(SessionsDispatcherServicer(), server)
+    print('Server starting')
     server.add_insecure_port('[::]:50051')
     server.start()
+    print('Server started')
     server.wait_for_termination()
 
 
