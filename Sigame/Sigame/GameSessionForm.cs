@@ -51,7 +51,7 @@ namespace Sigame
             }
             questionsField.CellClick += CellClickHandler;
 
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("localhost"), 8000);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.Connect(endPoint);
             

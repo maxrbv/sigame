@@ -31,8 +31,8 @@ namespace Sigame
         public static void SendMes(Socket socket,JObject message)
         {
             byte[] data = Encoding.UTF8.GetBytes(message.ToString());
+            socket.Send(BitConverter.GetBytes(data.Length), 4, SocketFlags.None);
             socket.Send(data,SocketFlags.None);
-
         }
 
     }
