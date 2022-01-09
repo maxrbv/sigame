@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package com.example.grpc;
+option csharp_namespace="Sigame";
+
+service SessionsDispatcher {
+    rpc AddSession (Session) returns (Reply);
+    rpc DeleteSession (Session) returns (Reply);
+    rpc GetSessions (Void) returns (stream Session);
+}
+
+message Session {
+    string ip = 1;
+}
+
+message Reply{
+    int32 status = 1;
+}
+
+message Void{}
