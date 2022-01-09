@@ -82,6 +82,7 @@ namespace Sigame
             this.open_session_button.TabIndex = 4;
             this.open_session_button.Text = "Войти";
             this.open_session_button.UseVisualStyleBackColor = true;
+            this.open_session_button.Click += new System.EventHandler(this.open_session_button_Click);
             // 
             // textBox1
             // 

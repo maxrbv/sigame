@@ -45,7 +45,7 @@ namespace Sigame
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 341);
+            this.textBox1.Location = new System.Drawing.Point(15, 343);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(271, 20);
             this.textBox1.TabIndex = 1;
@@ -67,6 +67,7 @@ namespace Sigame
             this.send_messege_button.TabIndex = 3;
             this.send_messege_button.Text = "Отправить";
             this.send_messege_button.UseVisualStyleBackColor = true;
+            this.send_messege_button.Click += new System.EventHandler(this.send_messege_button_Click);
             // 
             // Chat
             // 
