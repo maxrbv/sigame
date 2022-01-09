@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Sigame
 {
@@ -15,6 +17,11 @@ namespace Sigame
         public Chat()
         {
             InitializeComponent();
+        }
+
+        private void send_messege_button_Click(object sender, EventArgs e)
+        {
+            chatBox.Items.Add(textBox1.Text);
         }
     }
 }
