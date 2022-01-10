@@ -222,10 +222,7 @@ namespace Sigame
 
         private void exit_button_Click(object sender, EventArgs e)
         {
-            Form1 main = new Form1();
             this.Close();
-            main.ShowDialog();
-            
         }
     }
 }
