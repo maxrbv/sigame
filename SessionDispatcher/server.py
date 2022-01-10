@@ -27,10 +27,12 @@ class SessionsDispatcherServicer(sessions_pb2_grpc.SessionsDispatcherServicer):
 
         cursor = connection.cursor()
         cursor.execute(
-        "INSERT INTO sessions (ip) VALUES (%s)", (ip),
+        "INSERT INTO sessions (ip) VALUES (%s)", (ip,),
         )
         connection.commit()
         connection.close()
+        
+        return sessions_pb2.Reply(status = 1)
 
 
     def DeleteSession(self, request, context):
@@ -39,10 +41,11 @@ class SessionsDispatcherServicer(sessions_pb2_grpc.SessionsDispatcherServicer):
 
         cursor = connection.cursor()
         cursor.execute(
-        "DELETE FROM sessions WHERE ip = %s", (ip),
+        "DELETE FROM sessions WHERE ip = %s", (ip,),
         )
         connection.commit() 
         connection.close()
+        return sessions_pb2.Reply(status = 1)
     
 
     def GetSessions(self, request, context):
