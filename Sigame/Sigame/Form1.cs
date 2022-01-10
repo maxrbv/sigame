@@ -34,7 +34,7 @@ namespace Sigame
 
         private void open_session_button_Click(object sender, EventArgs e)
         {
-            GameSessionForm game = new GameSessionForm();
+            GameSessionForm game = new GameSessionForm(nicknameTextBox.Text);
             game.ShowDialog();
         }
     }

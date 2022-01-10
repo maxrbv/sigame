@@ -15,11 +15,13 @@ namespace Sigame
 {
     public partial class GameSessionForm : Form
     {
-        public GameSessionForm()
+        BackgroundWorker messageReciver = new BackgroundWorker();
+        Socket socket;
+        public GameSessionForm(string nickname)
         {
             InitializeComponent();
 
-            var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "localhost", Port = 5432, Username = "postgres", Password = "postgres", Database = "SIGame" };
+            var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "localhost", Port = 5432, Username = "postgres", Password = "maxrbv", Database = "SIGame" };
             var connection = new NpgsqlConnection(connection_string_builder.ToString());
 
             connection.Open();
@@ -52,16 +54,40 @@ namespace Sigame
             questionsField.CellClick += CellClickHandler;
 
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            messageReciver.DoWork += MessageReciver_DoWork; ;
+            messageReciver.RunWorkerAsync();
+
             socket.Connect(endPoint);
             
-            Helper.SendMes(socket, JObject.FromObject(new {session_name = "1" } ) );
+            Helper.SendMes(socket, JObject.FromObject(new { session_name = "1" } ) );
+            Helper.SendMes(socket, JObject.FromObject(new { type = "new_player", player_name = nickname } ) );
+
+            playersView.Items.Add(nickname);
+        }
+
+        private void MessageReciver_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+                try
+                {
+                    var message = Helper.RecieveMes(socket);
+                    if (message["type"].ToString() == "new_player")
+                    {
+                        playersView.Items.Add(message["player_name"].ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
         }
 
         private void CellClickHandler(object sender, DataGridViewCellEventArgs e) 
         {
             DataGridView view = (DataGridView)sender;
-            if (view[e.ColumnIndex, e.RowIndex] is DataGridViewButtonDisableCell @cell)
+            if (e.ColumnIndex > -1 && e.RowIndex > -1 && view[e.ColumnIndex, e.RowIndex] is DataGridViewButtonDisableCell @cell)
             {
                 if (cell.Tag == null)
                 {              
