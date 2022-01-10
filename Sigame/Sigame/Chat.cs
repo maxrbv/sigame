@@ -14,9 +14,10 @@ namespace Sigame
 {
     public partial class Chat : Form
     {
-        public Chat()
+        public Chat(string question)
         {
             InitializeComponent();
+            questionText.Text = question;
         }
 
         private void send_messege_button_Click(object sender, EventArgs e)

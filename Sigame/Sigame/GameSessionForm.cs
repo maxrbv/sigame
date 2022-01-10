@@ -162,8 +162,9 @@ namespace Sigame
                 if (cell.Tag == null)
                 {              
                     questionsField.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                    questionlabel.Text = GetQuestionText(questionsField[questionsField.Columns.Count-1, e.RowIndex].Value.ToString(), questionsField.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
-                    Chat chat = new Chat();
+                    string txt = GetQuestionText(questionsField[questionsField.Columns.Count-1, e.RowIndex].Value.ToString(), questionsField.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    questionlabel.Text = txt;
+                    Chat chat = new Chat(txt);
                     chat.ShowDialog();
                     cell.Enabled = false;
                     cell.Tag = "clicked";
