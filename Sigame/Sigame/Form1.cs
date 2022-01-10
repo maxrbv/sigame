@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,7 @@ namespace Sigame
 {
     public partial class Form1 : Form
     {
+        private Socket server;
         private string MyAddress { 
             get { 
                 return string.Format("{0}:{1}", myIpTextBox.Text, myPortTextBox.Text);
@@ -57,6 +59,7 @@ namespace Sigame
                 string[] serverAddress = sessionList_box.SelectedItem.ToString().Split(':');
                 game = new GameSessionForm(false, nicknameTextBox.Text, serverAddress[0], int.Parse(serverAddress[1]));
             }
+            server = game.Socket;
             game.ShowDialog();
         }
 
@@ -75,6 +78,10 @@ namespace Sigame
 
         private void delete_session_button_Click(object sender, EventArgs e)
         {
+            if (server != null)
+            {
+                server.Close();
+            }
             sessionList_box.Items.Remove(MyAddress);
             var channel = new Channel("localhost:50051", ChannelCredentials.Insecure);
             {

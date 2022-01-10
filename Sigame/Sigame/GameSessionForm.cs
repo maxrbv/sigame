@@ -25,7 +25,7 @@ namespace Sigame
         updateUserListDelegate updateUserList;
         getUsersListDelegate getUsersList;
 
-        Socket Socket { get; set; }
+        public Socket Socket { get; set; }
 
         string ServerIp { get; set; }
         int ServerPort { get; set; }
@@ -107,12 +107,19 @@ namespace Sigame
             // Accept client connection and update array socket connections
             while (true)
             {
-                Socket client = Socket.Accept();
-                SessionSockets.Add(client);
+                try
+                {
+                    Socket client = Socket.Accept();
+                    SessionSockets.Add(client);
 
-                BackgroundWorker messageReciver = new BackgroundWorker();
-                messageReciver.DoWork += MessageReciver_DoWork;
-                messageReciver.RunWorkerAsync(client);
+                    BackgroundWorker messageReciver = new BackgroundWorker();
+                    messageReciver.DoWork += MessageReciver_DoWork;
+                    messageReciver.RunWorkerAsync(client);
+                }
+                catch
+                {
+                    e.Cancel = true;
+                }
             }
         }
 
@@ -218,6 +225,14 @@ namespace Sigame
                 }
             }
             return rows.ToArray();
+        }
+
+        private void GameSessionForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!IsServer)
+            {
+                Socket.Close();
+            }
         }
 
         private void exit_button_Click(object sender, EventArgs e)

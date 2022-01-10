@@ -180,6 +180,7 @@ namespace Sigame
             this.Controls.Add(this.questionsField);
             this.Name = "GameSessionForm";
             this.Text = "SIGAME SESSION";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameSessionForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.questionsField)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
