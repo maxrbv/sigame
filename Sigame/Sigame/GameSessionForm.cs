@@ -15,13 +15,33 @@ namespace Sigame
 {
     public partial class GameSessionForm : Form
     {
-        BackgroundWorker messageReciver = new BackgroundWorker();
-        Socket socket;
-        public GameSessionForm(string nickname)
+        
+        BackgroundWorker clientsAccepter = new BackgroundWorker();
+        List<Socket> SessionSockets = new List<Socket>();
+
+        delegate void updateUserListDelegate(object new_item);
+        delegate string[][] getUsersListDelegate();
+
+        updateUserListDelegate updateUserList;
+        getUsersListDelegate getUsersList;
+
+        Socket Socket { get; set; }
+
+        string ServerIp { get; set; }
+        int ServerPort { get; set; }
+        bool IsServer { get; set; }
+
+        public GameSessionForm(bool isServer, string nickname, string serverIp, int serverPort)
         {
             InitializeComponent();
+            updateUserList += UpdateUsersListAction;
+            getUsersList += GetUsersArrayAction;
 
-            var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "localhost", Port = 5432, Username = "postgres", Password = "maxrbv", Database = "SIGame" };
+            IsServer = isServer;
+            ServerIp = serverIp;
+            ServerPort = serverPort;
+
+            var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "localhost", Port = 5432, Username = "postgres", Password = "postgres", Database = "SIGame" };
             var connection = new NpgsqlConnection(connection_string_builder.ToString());
 
             connection.Open();
@@ -40,7 +60,7 @@ namespace Sigame
             command.Dispose();
             connection.Close();
 
-            for(int i = 0; i < questionsField.Columns.Count; i++)
+            for (int i = 0; i < questionsField.Columns.Count; i++)
             {
                 if (i == questionsField.Columns.Count - 1)
                 {
@@ -53,35 +73,78 @@ namespace Sigame
             }
             questionsField.CellClick += CellClickHandler;
 
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            messageReciver.DoWork += MessageReciver_DoWork; ;
-            messageReciver.RunWorkerAsync();
+            /* if client is host then create socket server*/
+            if (IsServer)
+            {
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), ServerPort);
+                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Socket.Bind(endPoint);
+                Socket.Listen(10);
 
-            socket.Connect(endPoint);
-            
-            Helper.SendMes(socket, JObject.FromObject(new { session_name = "1" } ) );
-            Helper.SendMes(socket, JObject.FromObject(new { type = "new_player", player_name = nickname } ) );
+                clientsAccepter.DoWork += ClientsAccepter_DoWork; ;
+                clientsAccepter.RunWorkerAsync();
 
-            playersView.Items.Add(nickname);
+                playersView.Items.Add(new ListViewItem(new[] { "", nickname, "0" }));
+            }
+            /* else connect to server */
+            else
+            {
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), ServerPort);
+                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                Socket.Connect(endPoint);
+                BackgroundWorker messageReciver = new BackgroundWorker();
+                messageReciver.DoWork += MessageReciver_DoWork;
+                messageReciver.RunWorkerAsync(Socket);
+
+                Helper.SendMes(Socket, JObject.FromObject(new { type = "new_player", player = new[] { "", nickname, "0" } }));
+            }
+        }
+
+        private void ClientsAccepter_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // Accept client connection and update array socket connections
+            while (true)
+            {
+                Socket client = Socket.Accept();
+                SessionSockets.Add(client);
+
+                BackgroundWorker messageReciver = new BackgroundWorker();
+                messageReciver.DoWork += MessageReciver_DoWork;
+                messageReciver.RunWorkerAsync(client);
+            }
         }
 
         private void MessageReciver_DoWork(object sender, DoWorkEventArgs e)
         {
+            // Get message from client if current socket is host or from server if current socket is client
             while (true)
+            {
                 try
                 {
-                    var message = Helper.RecieveMes(socket);
+                    var message = Helper.RecieveMes((Socket)e.Argument);
+
                     if (message["type"].ToString() == "new_player")
                     {
-                        playersView.Items.Add(message["player_name"].ToString());
+                        var users = InvokeGetUsersList();
+                        users = users.Append(message["player"].ToObject<string[]>()).ToArray();
+                        InvokeUpdateUsersList(users);
+
+                        // Send message to all clients
+                        foreach (Socket client in SessionSockets)
+                            Helper.SendMes(client, JObject.FromObject(new { type="update_users_list", users=users }));
+                    }
+                    else if (message["type"].ToString() == "update_users_list")
+                    {
+                        InvokeUpdateUsersList(message["users"].ToObject<string[][]>());
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    continue;
                 }
+            }
         }
 
         private void CellClickHandler(object sender, DataGridViewCellEventArgs e) 
@@ -113,6 +176,43 @@ namespace Sigame
             NpgsqlDataReader dataReader = command.ExecuteReader();
             string questionText="";
             return questionText;
+        }
+
+        private void InvokeUpdateUsersList(object new_item)
+        {
+            playersView.Invoke(updateUserList, new_item);
+        }
+
+        private void UpdateUsersListAction(object new_item)
+        {
+            playersView.Items.Clear();
+
+            string[][] users = (string[][])new_item;
+            foreach(string[] user in users)
+                playersView.Items.Add(new ListViewItem(user));
+        }
+
+        private string[][] InvokeGetUsersList()
+        {
+            return (string[][])playersView.Invoke(getUsersList);
+        }
+
+        private string[][] GetUsersArrayAction()
+        {
+            List<string[]> rows = new List<string[]>();
+            foreach(ListViewItem row in playersView.Items)
+            {
+                
+                {
+                    List<string> cells = new List<string>() ;
+                    foreach (ListViewItem.ListViewSubItem cell in row.SubItems)
+                    {
+                            cells.Add(cell.Text);
+                    }
+                    rows.Add(cells.ToArray());
+                }
+            }
+            return rows.ToArray();
         }
     }
 }

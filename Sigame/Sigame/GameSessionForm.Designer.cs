@@ -30,17 +30,18 @@ namespace Sigame
         private void InitializeComponent()
         {
             this.questionsField = new System.Windows.Forms.DataGridView();
+            this.th200 = new Sigame.DataGridViewButtonDisableColumn();
+            this.th400 = new Sigame.DataGridViewButtonDisableColumn();
+            this.th600 = new Sigame.DataGridViewButtonDisableColumn();
+            this.th800 = new Sigame.DataGridViewButtonDisableColumn();
+            this.th1000 = new Sigame.DataGridViewButtonDisableColumn();
             this.playersView = new System.Windows.Forms.ListView();
-            this.Имя = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Счёт = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Empy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.points = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.questionlabel = new System.Windows.Forms.Label();
-            this.th200 = new DataGridViewButtonDisableColumn();
-            this.th400 = new DataGridViewButtonDisableColumn();
-            this.th600 = new DataGridViewButtonDisableColumn();
-            this.th800 = new DataGridViewButtonDisableColumn();
-            this.th1000 = new DataGridViewButtonDisableColumn();
             ((System.ComponentModel.ISupportInitialize)(this.questionsField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,45 +61,6 @@ namespace Sigame
             this.questionsField.ReadOnly = true;
             this.questionsField.Size = new System.Drawing.Size(680, 352);
             this.questionsField.TabIndex = 0;
-            // 
-            // playersView
-            // 
-            this.playersView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Имя,
-            this.Счёт});
-            this.playersView.HideSelection = false;
-            this.playersView.Location = new System.Drawing.Point(718, 43);
-            this.playersView.Name = "playersView";
-            this.playersView.Size = new System.Drawing.Size(247, 352);
-            this.playersView.TabIndex = 1;
-            this.playersView.UseCompatibleStateImageBehavior = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(818, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Счёт";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 409);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Вопрос:";
-            // 
-            // questionlabel
-            // 
-            this.questionlabel.AutoSize = true;
-            this.questionlabel.Location = new System.Drawing.Point(20, 422);
-            this.questionlabel.Name = "questionlabel";
-            this.questionlabel.Size = new System.Drawing.Size(91, 13);
-            this.questionlabel.TabIndex = 4;
-            this.questionlabel.Text = "Какой-то вопрос";
             // 
             // th200
             // 
@@ -140,6 +102,60 @@ namespace Sigame
             this.th1000.Text = "1000";
             this.th1000.UseColumnTextForButtonValue = true;
             // 
+            // playersView
+            // 
+            this.playersView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Empy,
+            this.name,
+            this.points});
+            this.playersView.HideSelection = false;
+            this.playersView.Location = new System.Drawing.Point(718, 43);
+            this.playersView.Name = "playersView";
+            this.playersView.Size = new System.Drawing.Size(247, 352);
+            this.playersView.TabIndex = 1;
+            this.playersView.UseCompatibleStateImageBehavior = false;
+            this.playersView.View = System.Windows.Forms.View.Details;
+            // 
+            // Empy
+            // 
+            this.Empy.Width = 0;
+            // 
+            // name
+            // 
+            this.name.Text = "Имя";
+            // 
+            // points
+            // 
+            this.points.Text = "Счёт";
+            this.points.Width = 103;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(818, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Счёт";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 409);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Вопрос:";
+            // 
+            // questionlabel
+            // 
+            this.questionlabel.AutoSize = true;
+            this.questionlabel.Location = new System.Drawing.Point(20, 422);
+            this.questionlabel.Name = "questionlabel";
+            this.questionlabel.Size = new System.Drawing.Size(91, 13);
+            this.questionlabel.TabIndex = 4;
+            this.questionlabel.Text = "Какой-то вопрос";
+            // 
             // GameSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,8 +178,8 @@ namespace Sigame
 
         private System.Windows.Forms.DataGridView questionsField;
         private System.Windows.Forms.ListView playersView;
-        private System.Windows.Forms.ColumnHeader Имя;
-        private System.Windows.Forms.ColumnHeader Счёт;
+        private System.Windows.Forms.ColumnHeader Empy;
+        private System.Windows.Forms.ColumnHeader points;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label questionlabel;
@@ -172,5 +188,6 @@ namespace Sigame
         private DataGridViewButtonDisableColumn th600;
         private DataGridViewButtonDisableColumn th800;
         private DataGridViewButtonDisableColumn th1000;
+        private System.Windows.Forms.ColumnHeader name;
     }
 }

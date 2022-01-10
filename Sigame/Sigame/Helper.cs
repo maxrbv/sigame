@@ -14,18 +14,24 @@ namespace Sigame
     {
         public static JObject RecieveMes(Socket socket)
         {
+            JObject message;
+            int size;
 
-            List<byte> builder = new List<byte>();
-            int bytes = 0;
-            byte[] data = new byte[256]; 
-            do
+            /* Get size message */
             {
-                bytes = socket.Receive(data);
-                for (int i = 0; i < bytes; i++)
-                    builder.Add(data[i]);
-            } while (socket.Available > 0);
+                byte[] size_data = new byte[4];
+                socket.Receive(size_data, 4, SocketFlags.None);
+                size = BitConverter.ToInt32(size_data, 0);
+            }
 
-            return JObject.Parse(Encoding.UTF8.GetString(builder.ToArray()));
+            /* Get entire message */
+            {
+                byte[] message_data = new byte[size];
+                socket.Receive(message_data, size, SocketFlags.None);
+                message = JObject.Parse(Encoding.UTF8.GetString(message_data));
+            }
+
+            return message;
        
         }
         public static void SendMes(Socket socket,JObject message)
