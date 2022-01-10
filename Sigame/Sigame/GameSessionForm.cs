@@ -155,7 +155,7 @@ namespace Sigame
                 if (cell.Tag == null)
                 {              
                     questionsField.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                    questionlabel.Text = GetQuestionText(questionsField.Rows[e.RowIndex].Cells[0].Value.ToString(), questionsField.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    questionlabel.Text = GetQuestionText(questionsField[questionsField.Columns.Count-1, e.RowIndex].Value.ToString(), questionsField.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
                     Chat chat = new Chat();
                     chat.ShowDialog();
                     cell.Enabled = false;
@@ -171,7 +171,7 @@ namespace Sigame
             connection.Open();
 
             var command = new NpgsqlCommand(cmdText: "select question from questions inner join category on questions.category_id = category.id where value = @value and category.category_name = @category order by random() limit 1", connection: connection);
-            command.Parameters.AddWithValue("@value", cost);
+            command.Parameters.AddWithValue("@value", int.Parse(cost));
             command.Parameters.AddWithValue("@category", theme);
             NpgsqlDataReader question = command.ExecuteReader();
             string questionText="";
