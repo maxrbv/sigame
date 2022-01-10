@@ -155,7 +155,7 @@ namespace Sigame
                 if (cell.Tag == null)
                 {              
                     questionsField.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-
+                    questionlabel.Text = GetQuestionText(questionsField.Rows[e.RowIndex].Cells[0].Value.ToString(), questionsField.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
                     Chat chat = new Chat();
                     chat.ShowDialog();
                     cell.Enabled = false;
@@ -170,12 +170,17 @@ namespace Sigame
 
             connection.Open();
 
-            var command = new NpgsqlCommand(cmdText: "select distinct question where value=@loc_name and  from questions order by rand() limit 1", connection: connection);
-
-            
-            NpgsqlDataReader dataReader = command.ExecuteReader();
+            var command = new NpgsqlCommand(cmdText: "select question from questions inner join category on questions.category_id = category.id where value = @value and category.category_name = @category order by random() limit 1", connection: connection);
+            command.Parameters.AddWithValue("@value", cost);
+            command.Parameters.AddWithValue("@category", theme);
+            NpgsqlDataReader question = command.ExecuteReader();
             string questionText="";
+            while (question.Read())
+            {
+                questionText = question[0].ToString();
+            }
             return questionText;
+
         }
 
         private void InvokeUpdateUsersList(object new_item)
@@ -213,6 +218,14 @@ namespace Sigame
                 }
             }
             return rows.ToArray();
+        }
+
+        private void exit_button_Click(object sender, EventArgs e)
+        {
+            Form1 main = new Form1();
+            this.Close();
+            main.ShowDialog();
+            
         }
     }
 }

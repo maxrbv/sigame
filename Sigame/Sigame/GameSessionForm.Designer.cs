@@ -42,6 +42,7 @@ namespace Sigame
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.questionlabel = new System.Windows.Forms.Label();
+            this.exit_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.questionsField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -156,11 +157,22 @@ namespace Sigame
             this.questionlabel.TabIndex = 4;
             this.questionlabel.Text = "Какой-то вопрос";
             // 
+            // exit_button
+            // 
+            this.exit_button.Location = new System.Drawing.Point(718, 405);
+            this.exit_button.Name = "exit_button";
+            this.exit_button.Size = new System.Drawing.Size(247, 30);
+            this.exit_button.TabIndex = 5;
+            this.exit_button.Text = "Выйти из сессии";
+            this.exit_button.UseVisualStyleBackColor = true;
+            this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
+            // 
             // GameSessionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(977, 457);
+            this.Controls.Add(this.exit_button);
             this.Controls.Add(this.questionlabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -189,5 +201,6 @@ namespace Sigame
         private DataGridViewButtonDisableColumn th800;
         private DataGridViewButtonDisableColumn th1000;
         private System.Windows.Forms.ColumnHeader name;
+        private System.Windows.Forms.Button exit_button;
     }
 }
