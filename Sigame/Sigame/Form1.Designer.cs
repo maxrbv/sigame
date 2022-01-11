@@ -44,9 +44,10 @@ namespace Sigame
             // add_session_button
             // 
             this.add_session_button.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.add_session_button.Location = new System.Drawing.Point(237, 46);
+            this.add_session_button.Location = new System.Drawing.Point(316, 57);
+            this.add_session_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.add_session_button.Name = "add_session_button";
-            this.add_session_button.Size = new System.Drawing.Size(129, 30);
+            this.add_session_button.Size = new System.Drawing.Size(172, 37);
             this.add_session_button.TabIndex = 0;
             this.add_session_button.Text = "Создать сессию";
             this.add_session_button.UseVisualStyleBackColor = true;
@@ -54,26 +55,31 @@ namespace Sigame
             // 
             // update_session_button
             // 
-            this.update_session_button.Location = new System.Drawing.Point(12, 18);
+            this.update_session_button.Location = new System.Drawing.Point(16, 22);
+            this.update_session_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.update_session_button.Name = "update_session_button";
-            this.update_session_button.Size = new System.Drawing.Size(167, 30);
+            this.update_session_button.Size = new System.Drawing.Size(223, 37);
             this.update_session_button.TabIndex = 1;
             this.update_session_button.Text = "Обновить список сессий";
             this.update_session_button.UseVisualStyleBackColor = true;
+            this.update_session_button.Click += new System.EventHandler(this.update_session_button_Click);
             // 
             // sessionList_box
             // 
             this.sessionList_box.FormattingEnabled = true;
-            this.sessionList_box.Location = new System.Drawing.Point(12, 54);
+            this.sessionList_box.ItemHeight = 16;
+            this.sessionList_box.Location = new System.Drawing.Point(16, 66);
+            this.sessionList_box.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.sessionList_box.Name = "sessionList_box";
-            this.sessionList_box.Size = new System.Drawing.Size(167, 173);
+            this.sessionList_box.Size = new System.Drawing.Size(221, 212);
             this.sessionList_box.TabIndex = 2;
             // 
             // delete_session_button
             // 
-            this.delete_session_button.Location = new System.Drawing.Point(228, 170);
+            this.delete_session_button.Location = new System.Drawing.Point(304, 209);
+            this.delete_session_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.delete_session_button.Name = "delete_session_button";
-            this.delete_session_button.Size = new System.Drawing.Size(129, 32);
+            this.delete_session_button.Size = new System.Drawing.Size(172, 39);
             this.delete_session_button.TabIndex = 3;
             this.delete_session_button.Text = "Удалить сессию";
             this.delete_session_button.UseVisualStyleBackColor = true;
@@ -81,9 +87,10 @@ namespace Sigame
             // 
             // open_session_button
             // 
-            this.open_session_button.Location = new System.Drawing.Point(12, 233);
+            this.open_session_button.Location = new System.Drawing.Point(16, 287);
+            this.open_session_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.open_session_button.Name = "open_session_button";
-            this.open_session_button.Size = new System.Drawing.Size(167, 32);
+            this.open_session_button.Size = new System.Drawing.Size(223, 39);
             this.open_session_button.TabIndex = 4;
             this.open_session_button.Text = "Войти";
             this.open_session_button.UseVisualStyleBackColor = true;
@@ -91,50 +98,54 @@ namespace Sigame
             // 
             // myIpTextBox
             // 
-            this.myIpTextBox.Location = new System.Drawing.Point(257, 82);
+            this.myIpTextBox.Location = new System.Drawing.Point(343, 101);
+            this.myIpTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.myIpTextBox.Name = "myIpTextBox";
-            this.myIpTextBox.Size = new System.Drawing.Size(109, 20);
+            this.myIpTextBox.Size = new System.Drawing.Size(144, 22);
             this.myIpTextBox.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(225, 85);
+            this.label1.Location = new System.Drawing.Point(300, 105);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(17, 13);
+            this.label1.Size = new System.Drawing.Size(20, 17);
             this.label1.TabIndex = 6;
             this.label1.Text = "IP";
             // 
             // nicknameTextBox
             // 
-            this.nicknameTextBox.Location = new System.Drawing.Point(228, 207);
-            this.nicknameTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.nicknameTextBox.Location = new System.Drawing.Point(304, 255);
+            this.nicknameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nicknameTextBox.Name = "nicknameTextBox";
-            this.nicknameTextBox.Size = new System.Drawing.Size(76, 20);
+            this.nicknameTextBox.Size = new System.Drawing.Size(100, 22);
             this.nicknameTextBox.TabIndex = 7;
             this.nicknameTextBox.Text = "Имя";
             // 
             // portLabel
             // 
             this.portLabel.AutoSize = true;
-            this.portLabel.Location = new System.Drawing.Point(225, 111);
+            this.portLabel.Location = new System.Drawing.Point(300, 137);
+            this.portLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.portLabel.Name = "portLabel";
-            this.portLabel.Size = new System.Drawing.Size(26, 13);
+            this.portLabel.Size = new System.Drawing.Size(34, 17);
             this.portLabel.TabIndex = 9;
             this.portLabel.Text = "Port";
             // 
             // myPortTextBox
             // 
-            this.myPortTextBox.Location = new System.Drawing.Point(257, 108);
+            this.myPortTextBox.Location = new System.Drawing.Point(343, 133);
+            this.myPortTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.myPortTextBox.Name = "myPortTextBox";
-            this.myPortTextBox.Size = new System.Drawing.Size(109, 20);
+            this.myPortTextBox.Size = new System.Drawing.Size(144, 22);
             this.myPortTextBox.TabIndex = 8;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 283);
+            this.ClientSize = new System.Drawing.Size(727, 348);
             this.Controls.Add(this.portLabel);
             this.Controls.Add(this.myPortTextBox);
             this.Controls.Add(this.nicknameTextBox);
@@ -145,6 +156,7 @@ namespace Sigame
             this.Controls.Add(this.sessionList_box);
             this.Controls.Add(this.update_session_button);
             this.Controls.Add(this.add_session_button);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "SIGAME";
             this.ResumeLayout(false);

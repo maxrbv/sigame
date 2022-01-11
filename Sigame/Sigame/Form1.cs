@@ -98,5 +98,21 @@ namespace Sigame
                     MessageBox.Show("Сессия удалена");
             }
         }
+
+        private void update_session_button_Click(object sender, EventArgs e)
+        {
+            sessionList_box.Items.Clear();
+            var channel = new Channel("192.168.0.168:50051", ChannelCredentials.Insecure);
+            {
+                var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
+
+                var sessionsStream = client.GetSessions(new Void());
+                while (sessionsStream.ResponseStream.MoveNext().Result)
+                {
+                    var session = sessionsStream.ResponseStream.Current;
+                    sessionList_box.Items.Add(session.Ip);
+                }
+            }
+        }
     }
 }
