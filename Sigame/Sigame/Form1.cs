@@ -28,7 +28,7 @@ namespace Sigame
         public Form1()
         {
             InitializeComponent();
-            var channel = new Channel("localhost:50051", ChannelCredentials.Insecure );
+            var channel = new Channel("192.168.0.168:50051", ChannelCredentials.Insecure );
             {
                 var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
 
@@ -39,7 +39,7 @@ namespace Sigame
                     sessionList_box.Items.Add(session.Ip);
                 }
             } 
-            myIpTextBox.Text = Dns.GetHostEntry(Dns.GetHostName()).AddressList[2].ToString();
+            myIpTextBox.Text = Dns.GetHostEntry(Dns.GetHostName()).AddressList[3].ToString();
         }
 
         private void open_session_button_Click(object sender, EventArgs e)
@@ -70,7 +70,7 @@ namespace Sigame
         private void add_session_button_Click(object sender, EventArgs e)
         {
             sessionList_box.Items.Add(MyAddress);
-            var channel = new Channel("localhost:50051", ChannelCredentials.Insecure);
+            var channel = new Channel("192.168.0.168:50051", ChannelCredentials.Insecure);
             {
                 var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
 
@@ -89,7 +89,7 @@ namespace Sigame
                 server.Close();
             }
             sessionList_box.Items.Remove(MyAddress);
-            var channel = new Channel("localhost:50051", ChannelCredentials.Insecure);
+            var channel = new Channel("192.168.0.168:50051", ChannelCredentials.Insecure);
             {
                 var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
 
