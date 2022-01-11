@@ -60,7 +60,11 @@ namespace Sigame
                 game = new GameSessionForm(false, nicknameTextBox.Text, serverAddress[0], int.Parse(serverAddress[1]));
             }
             server = game.Socket;
+            this.Visible = false;
+
             game.ShowDialog();
+
+            this.Visible = true;
         }
 
         private void add_session_button_Click(object sender, EventArgs e)
@@ -72,7 +76,9 @@ namespace Sigame
 
                 var reply = client.AddSession(new Session() { Ip = MyAddress });
                 if (reply.Status == 1)
+                {
                     MessageBox.Show("Сессия создана");
+                }
             }
         }
 
