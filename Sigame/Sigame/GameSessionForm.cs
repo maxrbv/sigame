@@ -13,6 +13,7 @@ using System.Net;
 using Newtonsoft.Json.Linq;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Microsoft.Data.Sqlite;
 
 namespace Sigame
 {
@@ -79,13 +80,13 @@ namespace Sigame
             ServerPort = serverPort;
             Nickname = nickname;
 
-            var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "localhost", Port = 5432, Username = "postgres", Password = "maxrbv", Database = "SIGame" };
-            var connection = new NpgsqlConnection(connection_string_builder.ToString());
+            SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_winsqlite3());
+            var connection = new SqliteConnection(string.Format("Data Source = {0}", @"C:\Users\Max\Desktop\PSU\TRRP\sigame\db.db"));
 
             connection.Open();
 
-            var command = new NpgsqlCommand(cmdText: "select distinct category_name as \"Темы\" from category", connection: connection);
-            NpgsqlDataReader dataReader = command.ExecuteReader();
+            var command = new SqliteCommand("select distinct category_name as \"Темы\" from category", connection: connection);
+            SqliteDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {
@@ -259,14 +260,15 @@ namespace Sigame
         public string[] GetQuestionInfo(string theme, int score)
         {
             var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "localhost", Port = 5432, Username = "postgres", Password = "maxrbv", Database = "SIGame" };
-            var connection = new NpgsqlConnection(connection_string_builder.ToString());
+            var connection = new SqliteConnection(string.Format("Data Source = {0}", @"C:\Users\Max\Desktop\PSU\TRRP\sigame\db.db"));
 
             connection.Open();
 
-            var command = new NpgsqlCommand(cmdText: "select question, answer from questions inner join category on questions.category_id = category.id where value = @value and category.category_name = @category order by random() limit 1", connection: connection);
+            var command = new SqliteCommand("select question, answer from questions inner join category on questions.category_id = category.id where value = @value and category.category_name = @category order by random() limit 1", connection: connection);
             command.Parameters.AddWithValue("@value", score);
             command.Parameters.AddWithValue("@category", theme);
-            NpgsqlDataReader question = command.ExecuteReader();
+            SqliteDataReader question = command.ExecuteReader();
+
             string questionText = string.Empty;
             string answerText = string.Empty;
             while (question.Read())

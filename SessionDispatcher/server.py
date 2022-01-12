@@ -5,19 +5,12 @@ import sessions_pb2
 import sessions_pb2_grpc
 import psycopg2
 import json
+import sqlite3
 
 
 class SessionsDispatcherServicer(sessions_pb2_grpc.SessionsDispatcherServicer):
     def InitDB(self):
-        with open('credentials.json', 'r') as credentials: 
-            settings = json.loads(credentials.read())
-        connection = psycopg2.connect(
-            database=settings['DATABASE_STORAGE'],
-            user=settings['DATABASE_USER'],
-            password=settings['DATABASE_PASSWORD'],
-            host=settings['DATABASE_HOST'],
-            port=settings['DATABASE_PORT']
-        )
+        connection = sqlite3.connect(r'C:\Users\Max\Desktop\PSU\TRRP\sigame\db.db')
         return connection
 
 
@@ -27,7 +20,7 @@ class SessionsDispatcherServicer(sessions_pb2_grpc.SessionsDispatcherServicer):
 
         cursor = connection.cursor()
         cursor.execute(
-        "INSERT INTO sessions (ip) VALUES (%s)", (ip,),
+        "INSERT INTO sessions (ip) VALUES (?)", (ip,),
         )
         connection.commit()
         connection.close()
@@ -41,7 +34,7 @@ class SessionsDispatcherServicer(sessions_pb2_grpc.SessionsDispatcherServicer):
 
         cursor = connection.cursor()
         cursor.execute(
-        "DELETE FROM sessions WHERE ip = %s", (ip,),
+        "DELETE FROM sessions WHERE ip = ?", (ip,),
         )
         connection.commit() 
         connection.close()
