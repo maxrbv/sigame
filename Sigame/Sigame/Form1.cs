@@ -19,6 +19,7 @@ namespace Sigame
     public partial class Form1 : Form
     {
         private Socket server;
+        string adr = "192.168.1.176:50051";
         private string MyAddress { 
             get { 
                 return string.Format("{0}:{1}", myIpTextBox.Text, myPortTextBox.Text);
@@ -28,7 +29,7 @@ namespace Sigame
         public Form1()
         {
             InitializeComponent();
-            var channel = new Channel("192.168.0.168:50051", ChannelCredentials.Insecure );
+            var channel = new Channel(adr, ChannelCredentials.Insecure );
             {
                 var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
 
@@ -70,7 +71,7 @@ namespace Sigame
         private void add_session_button_Click(object sender, EventArgs e)
         {
             sessionList_box.Items.Add(MyAddress);
-            var channel = new Channel("192.168.0.168:50051", ChannelCredentials.Insecure);
+            var channel = new Channel(adr, ChannelCredentials.Insecure);
             {
                 var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
 
@@ -89,7 +90,7 @@ namespace Sigame
                 server.Close();
             }
             sessionList_box.Items.Remove(MyAddress);
-            var channel = new Channel("192.168.0.168:50051", ChannelCredentials.Insecure);
+            var channel = new Channel(adr, ChannelCredentials.Insecure);
             {
                 var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
 
@@ -102,7 +103,7 @@ namespace Sigame
         private void update_session_button_Click(object sender, EventArgs e)
         {
             sessionList_box.Items.Clear();
-            var channel = new Channel("192.168.0.168:50051", ChannelCredentials.Insecure);
+            var channel = new Channel(adr, ChannelCredentials.Insecure);
             {
                 var client = new SessionsDispatcher.SessionsDispatcherClient(channel);
 
