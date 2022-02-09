@@ -19,7 +19,7 @@ namespace Sigame
     public partial class Form1 : Form
     {
         private Socket server;
-        string adr = "192.168.1.176:50051";
+        string adr = "192.168.0.168:50051";
         private string MyAddress { 
             get { 
                 return string.Format("{0}:{1}", myIpTextBox.Text, myPortTextBox.Text);

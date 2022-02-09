@@ -79,7 +79,7 @@ namespace Sigame
             ServerPort = serverPort;
             Nickname = nickname;
 
-            var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "localhost", Port = 5432, Username = "postgres", Password = "maxrbv", Database = "SIGame" };
+            var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "35.224.58.55", Username = "postgres", Password = "postgres", Database = "SIGame" };
             var connection = new NpgsqlConnection(connection_string_builder.ToString());
 
             connection.Open();
@@ -258,7 +258,7 @@ namespace Sigame
         }
         public string[] GetQuestionInfo(string theme, int score)
         {
-            var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "localhost", Port = 5432, Username = "postgres", Password = "maxrbv", Database = "SIGame" };
+            var connection_string_builder = new NpgsqlConnectionStringBuilder() { Host = "35.224.58.55", Username = "postgres", Password = "postgres", Database = "SIGame" };
             var connection = new NpgsqlConnection(connection_string_builder.ToString());
 
             connection.Open();
