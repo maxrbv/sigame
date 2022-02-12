@@ -89,6 +89,11 @@ namespace Sigame
             {
                 server.Close();
             }
+            else
+            {
+                MessageBox.Show("Сессия не запущена");
+                return;
+            }
             sessionList_box.Items.Remove(MyAddress);
             var channel = new Channel(adr, ChannelCredentials.Insecure);
             {

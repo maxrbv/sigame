@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0esessions.proto\x12\x10\x63om.example.grpc\"\x15\n\x07Session\x12\n\n\x02ip\x18\x01 \x01(\t\"\x17\n\x05Reply\x12\x0e\n\x06status\x18\x01 \x01(\x05\"\x06\n\x04Void2\xdf\x01\n\x12SessionsDispatcher\x12@\n\nAddSession\x12\x19.com.example.grpc.Session\x1a\x17.com.example.grpc.Reply\x12\x43\n\rDeleteSession\x12\x19.com.example.grpc.Session\x1a\x17.com.example.grpc.Reply\x12\x42\n\x0bGetSessions\x12\x16.com.example.grpc.Void\x1a\x19.com.example.grpc.Session0\x01\x62\x06proto3'
+  serialized_pb=b'\n\x0esessions.proto\x12\x10\x63om.example.grpc\"\x15\n\x07Session\x12\n\n\x02ip\x18\x01 \x01(\t\"&\n\x05Reply\x12\x0e\n\x06status\x18\x01 \x01(\x05\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"\x06\n\x04Void2\xdf\x01\n\x12SessionsDispatcher\x12@\n\nAddSession\x12\x19.com.example.grpc.Session\x1a\x17.com.example.grpc.Reply\x12\x43\n\rDeleteSession\x12\x19.com.example.grpc.Session\x1a\x17.com.example.grpc.Reply\x12\x42\n\x0bGetSessions\x12\x16.com.example.grpc.Void\x1a\x19.com.example.grpc.Session0\x01\x62\x06proto3'
 )
 
 
@@ -72,6 +72,13 @@ _REPLY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='count', full_name='com.example.grpc.Reply.count', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -85,7 +92,7 @@ _REPLY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=59,
-  serialized_end=82,
+  serialized_end=97,
 )
 
 
@@ -109,8 +116,8 @@ _VOID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=84,
-  serialized_end=90,
+  serialized_start=99,
+  serialized_end=105,
 )
 
 DESCRIPTOR.message_types_by_name['Session'] = _SESSION
@@ -148,8 +155,8 @@ _SESSIONSDISPATCHER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=93,
-  serialized_end=316,
+  serialized_start=108,
+  serialized_end=331,
   methods=[
   _descriptor.MethodDescriptor(
     name='AddSession',

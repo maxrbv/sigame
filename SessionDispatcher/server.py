@@ -43,9 +43,10 @@ class SessionsDispatcherServicer(sessions_pb2_grpc.SessionsDispatcherServicer):
         cursor.execute(
         "DELETE FROM sessions WHERE ip = %s", (ip,),
         )
-        connection.commit() 
+        connection.commit()
+        count = cursor.rowcount
         connection.close()
-        return sessions_pb2.Reply(status = 1)
+        return sessions_pb2.Reply(status = 1, count=count)
     
 
     def GetSessions(self, request, context):
